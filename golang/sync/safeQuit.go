@@ -48,27 +48,27 @@ func jobGeneretor[T any](jChan chan T, ctx context.Context, factory func() T) {
 	defer tiker.Stop()
 	for {
 		//nolint:gosimple
+
+		<-tiker.C
 		select {
-		case <-tiker.C:
-			select {
-			case <-ctx.Done():
-				fmt.Println("stop the generetor")
-				return
-			default:
-				//we are fine
-			}
-			select {
-			case jChan <- factory():
-				fmt.Println("new job added")
-				//double check
-			case <-ctx.Done():
-				fmt.Println("stop the generetor")
-				return
-			default:
-				fmt.Println("job is full, drop")
-				//drop
-			}
+		case <-ctx.Done():
+			fmt.Println("stop the generetor")
+			return
+		default:
+			//we are fine
 		}
+		select {
+		case jChan <- factory():
+			fmt.Println("new job added")
+			//double check
+		case <-ctx.Done():
+			fmt.Println("stop the generetor")
+			return
+		default:
+			fmt.Println("job is full, drop")
+			//drop
+		}
+
 	}
 }
 
