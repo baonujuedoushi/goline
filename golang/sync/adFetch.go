@@ -37,7 +37,7 @@ func adSearch() {
 					return
 
 				default:
-					fmt.Printf("[%s] buffer is full，prepare %d retry...\n", p, i)
+					fmt.Printf("[%s] buffer is full,prepare %d retry...\n", p, i)
 					timer.Reset(time.Duration(gapTime*i) * time.Microsecond)
 					select {
 					case <-timer.C:
