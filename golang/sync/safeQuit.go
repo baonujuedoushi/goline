@@ -81,3 +81,13 @@ func jobReciver[T any](jChan chan T) {
 		time.Sleep(jobCostsTime)
 	}
 }
+
+func timeCount[T any](originalFunc func() T) func() T {
+	return func() T {
+		startTime := time.Now()
+		v := originalFunc()
+		timeSpent := time.Since(startTime)
+		fmt.Println(timeSpent)
+		return v
+	}
+}

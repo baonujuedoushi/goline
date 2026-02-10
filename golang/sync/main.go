@@ -1,5 +1,5 @@
 package main
 
 func main() {
-	safeQuit()
+	dynamicPrinterA(5)
 }
