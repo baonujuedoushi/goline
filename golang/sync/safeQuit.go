@@ -13,6 +13,7 @@ import (
 
 func safeQuit() {
 	sigChan := make(chan os.Signal, 1)
+	//スライスSLICE
 	signal.Notify(sigChan, syscall.SIGTERM, syscall.SIGINT)
 	jChan := make(chan int, 3)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -39,6 +40,12 @@ func safeQuit() {
 func randIntFactory() int {
 	return rand.IntN(100)
 }
+
+// ジェネリクス（GENERICS）：　T　は　パラーネタの名前て、any　は　型制約　です。
+//any以外ほかにもいろいろな型（かた）制約（せいやく）がある、例（たと）えば、[T int|float]int と　float　型が受け入れる。
+// [T ~int]int32や　int64や　intなど、intを基底型（きていがた）とするすべての型。type MyInt int　も受け入れる。
+
+// 関数かんすう
 func jobGeneretor[T any](jChan chan T, ctx context.Context, factory func() T) {
 	//generetor job, add to queue
 	//in channel is open case, try add job, when can't add case, queue is full. drop that

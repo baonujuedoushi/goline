@@ -1,5 +1,9 @@
 package main
 
+import "fmt"
+
 func main() {
-	dynamicPrinterA(5)
+	for i := 0; i < 15; i++ {
+		fmt.Println(i % 12)
+	}
 }
