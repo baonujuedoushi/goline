@@ -1,12 +1,11 @@
 package main
 
-import "fmt"
-
 func main() {
-	s := []int{3, 0, 1}
-	fmt.Println(missingNumber(s))
+	bag()
 }
 func missingNumber(nums []int) int {
+	//	s := []int{3, 0, 1}
+	//fmt.Println(missingNumber(s))
 	mMap := make(map[int]struct{}, len(nums))
 	for _, num := range nums {
 		mMap[num] = struct{}{}
