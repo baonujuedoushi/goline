@@ -1,7 +1,10 @@
 package main
 
+import "fmt"
+
 func main() {
-	bag()
+	sorted := mergeSort([]int{5, 1, 2, 8, 20, 15, 17, 60, 33, 6})
+	fmt.Println(sorted)
 }
 func missingNumber(nums []int) int {
 	//	s := []int{3, 0, 1}
