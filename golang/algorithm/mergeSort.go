@@ -15,7 +15,7 @@ func merge(ls, rs []int) []int {
 	var lPoint, rPoint int
 	lsLen := len(ls)
 	rsLen := len(rs)
-	newSlice := make([]int, 0, lsLen+rsLen)
+	newSlice := make([]int, 0, lsLen+rsLen) //先にメモリを申請（しんせい）する
 	for lPoint < lsLen && rPoint < rsLen {
 		if ls[lPoint] < rs[rPoint] {
 			newSlice = append(newSlice, ls[lPoint])
