@@ -1,12 +1,55 @@
 package main
 
-import "fmt"
+import (
+	"container/list"
+	"fmt"
+)
+
+type lruInstance struct {
+	linkList *list.List
+	hash     map[string]*list.Element
+}
+
+var lI *lruInstance
 
 func lru() {
-	//维护一个切片获取某个key或者更新某个key时，将该key移动到
-	aSlice := []int{1, 2, 3, 4}
-	aSlice = append(aSlice[1:], 5)
-	fmt.Printf("%v", aSlice[0])
-	aSlice = append(aSlice[0:1], aSlice[2:]...)
-	aSlice = append(aSlice, aSlice[1])
+	lI = &lruInstance{
+		linkList: list.New(),
+		hash:     map[string]*list.Element{},
+	}
+
+	set("key", "value")
+	v, _ := get("key")
+	fmt.Println(v)
+}
+
+func set(k, v string) {
+	if el, ok := lI.hash[k]; ok {
+		el.Value = v
+		lI.linkList.MoveToBack(el)
+		return
+	}
+	if lI.linkList.Len() >= 10 {
+		front := lI.linkList.Front()
+		if front != nil {
+			delete(lI.hash, front.Value.(string))
+			lI.linkList.Remove(front)
+		}
+	}
+	newNode := lI.linkList.PushBack(v)
+	lI.hash[k] = newNode
+}
+
+func get(k string) (string, bool) {
+	if el, ok := lI.hash[k]; ok {
+		lI.linkList.MoveToBack(el)
+		return el.Value.(string), ok
+	}
+	return "", false
+}
+
+func linkListTest() {
+	linkList := list.New()
+	node := linkList.PushBack("v")
+	fmt.Println(node)
 }
