@@ -16,6 +16,8 @@ func orm() {
 	db.Create(&User{Name: "test", Email: "test@gamil.com", Age: 20})
 	var result User
 	db.Where("name = ?", "test").First(&result)
+	result.Name = "test3"
+	db.Save(&result)
 	var userList User
 	db.Where("name IN ?", []string{"test1", "test2"}).Scan(&userList)
 }
