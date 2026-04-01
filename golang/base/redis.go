@@ -13,7 +13,7 @@ func redisSample() {
 		Addr:     "localhost:6379", // Redis 地址
 		Password: "",               // 密码，没有则留空
 		DB:       0,                // 使用的数据库
-		PoolSize: 10,               // 连接池大小
+		PoolSize: 10,               
 	})
 	defer rdb.Close()
 
